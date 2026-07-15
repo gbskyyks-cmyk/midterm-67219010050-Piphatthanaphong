@@ -1,1 +1,344 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Midterm Project</title>
+    <!-- ลิงก์ไปยัง style.css เดิม (ถ้ามี) -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ส่วนตกแต่งสีสันและสไตล์ใหม่ให้ดูเท่ ดุดัน และแยกสัดส่วนชัดเจนขึ้น -->
+    <style>
+        /* รีเซ็ตพื้นฐานและตั้งโทนสีหลัก (ธีม Dark & Orange Sport) */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px 0;
+        }
 
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ส่วนหัว (Profile) สไตล์สปอร์ตเท่ๆ */
+        .profile-section {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+            border-left: 6px solid #ff6600; /* เส้นตัดสีส้มสุดเท่ */
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff6600;
+        }
+
+        .profile-info h1 {
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .profile-info .bio {
+            color: #b0b0b0;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        /* หัวข้อของแต่ละ Section */
+        .bento-section {
+            margin-bottom: 40px;
+        }
+
+        .bento-section h2 {
+            color: #ff6600;
+            border-bottom: 2px solid #2a2a2a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* การจัดบล็อก Bento Grid สำหรับ Anime */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* การ์ด Anime */
+        .bento-card {
+            background-color: #1e1e1e;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6600;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.2);
+        }
+
+        /* การ์ดอันดับ 1 ให้เด่นเป็นพิเศษ */
+        .card-rank1 {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d190b 100%);
+            border: 1px solid #ff6600;
+        }
+
+        .bento-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .bento-card h3 {
+            color: #ffffff;
+            margin: 10px 0 5px 0;
+            font-size: 1.2rem;
+        }
+
+        .bento-card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* แท็กตัวเลขอันดับ */
+        .rank-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff6600;
+            color: #fff;
+            padding: 5px 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        /* การจัดบล็อก Bento Grid สำหรับเพลง */
+        .bento-grid-songs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* การ์ดเพลง */
+        .song-card {
+            background-color: #1e1e1e;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6600;
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.2);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* อัตราส่วน 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .song-info {
+            padding: 15px;
+            background-color: #1a1a1a;
+        }
+
+        .song-info h4 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ปุ่มกดด้านล่าง */
+        #alertBtn {
+            display: block;
+            width: 100%;
+            max-width: 350px;
+            margin: 40px auto 10px auto;
+            padding: 15px 25px;
+            background: linear-gradient(90deg, #ff6600 0%, #ff8800 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        #alertBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- ส่วนข้อมูลส่วนตัวที่เปลี่ยนเป็นชื่อของคุณปอนด์เรียบร้อยแล้ว -->
+        <header class="profile-section">
+            <img src="profileme.jpg" alt="รูปของฉัน" class="profile-img">
+            <div class="profile-info">
+                <h1>พิพัฒนพงค์ ทนุการ</h1>
+                <p><strong>ชื่อเล่น:</strong> ปอนด์</p>
+                <p class="bio">ยินดีต้อนรับสู่เว็บที่เอาไว้ให้พวกเธอทำข้อสอบกลางภาค เพื่อ 20 คะแนน จงท่อง 3 อ. อด เอา อิ </p>
+            </div>
+        </header>
+
+        <section class="bento-section">
+            <h2>🎬 My Top 5 Favorite Anime</h2>
+            <div class="bento-grid">
+                
+                <div class="bento-card card-rank1">
+                    <span class="rank-tag">#1</span>
+                    <img src="anime 1.jpg" alt="Anime 1">
+                    <h3>The Apothecary Diaries</h3>
+                    <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+                </div>
+
+                <div class="bento-card">
+                    <span class="rank-tag">#2</span>
+                    <img src="anime 2.jpg" alt="Anime 2">
+                    <h3>Kaijo No.8</h3>
+                    <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+                </div>
+
+                <div class="bento-card">
+                    <span class="rank-tag">#3</span>
+                    <img src="anime 3.jpg" alt="Anime 3">
+                    <h3>Alya Sometimes Hides Her Feelings In Russian</h3>
+                    <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+                </div>
+
+                <div class="bento-card">
+                    <span class="rank-tag">#4</span>
+                    <img src="anime 4.jpg" alt="Anime 4">
+                    <h3>kamisama hajimemashita</h3>
+                    <p>เรื่องนี้คือที่สุด in ใจ...</p>
+                </div>
+
+                <div class="bento-card">
+                    <span class="rank-tag">#5</span>
+                    <img src="anime 5.jpg" alt="Anime 5">
+                    <h3>Yamada-kun to Lv999 no Koi wo Suru</h3>
+                    <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="bento-section">
+            <h2>🎧 My Top 5 Favorite Songs</h2>
+            <div class="bento-grid-songs">
+                
+                <div class="song-card">
+                    <span class="rank-tag">#1</span>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/C40oligg6xE?si=TWNnkD9foLF5k_Ox" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="song-info">
+                        <h4>BOWKYLION - นาฬิกาทราย (sign)</h4>
+                    </div>
+                </div>
+
+                <div class="song-card">
+                    <span class="rank-tag">#2</span>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/1VP8JrTHoHo?si=pRhuqpGKMFEdnWs5" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="song-info">
+                        <h4>คุณนายตื่นสาย (Wake up please) - TEMI Feat. KiRANA</h4>
+                    </div>
+                </div>
+
+                <div class="song-card">
+                    <span class="rank-tag">#3</span>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/x_RYZsOfpKY?si=_I2nnMdPZ3OViqcl" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="song-info">
+                        <h4>ILLIT (아일릿) 'NOT CUTE ANYMORE’</h4>
+                    </div>
+                </div>
+
+                <div class="song-card">
+                    <span class="rank-tag">#4</span>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/eHHQaoEW30Q?si=y9vxDCAMQmRfVQsv" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="song-info">
+                        <h4>TWICE "THIS IS FOR"</h4>
+                    </div>
+                </div>
+
+                <div class="song-card">
+                    <span class="rank-tag">#5</span>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/M2WTUoy4y6E?si=ib-JjOihRmIZuY65" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="song-info">
+                        <h4>aespa 에스파 'Dirty Work'</h4>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <button id="alertBtn">✨ นะโมสามจบแล้วกดสิ ✨</button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
